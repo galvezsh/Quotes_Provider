@@ -1,4 +1,4 @@
-package com.galvezsh.mvvm_1.ui.theme
+package com.galvezsh.quotes_provider.ui.theme
 
 import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme

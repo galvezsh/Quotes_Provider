@@ -1,4 +1,4 @@
-package com.galvezsh.mvvm_1
+package com.galvezsh.quotes_provider
 
 import org.junit.Test
 

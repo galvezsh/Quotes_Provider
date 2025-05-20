@@ -19,6 +19,6 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "MVVM_1"
+rootProject.name = "Quotes_Provider"
 include(":app")
  

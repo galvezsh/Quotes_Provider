@@ -1,4 +1,4 @@
-package com.galvezsh.mvvm_1.view
+package com.galvezsh.quotes_provider.view
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -15,44 +15,43 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.IconButtonDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.galvezsh.mvvm_1.ui.theme.MVVM_1Theme
-import com.galvezsh.mvvm_1.viewModel.AdviceViewModel
-import androidx.compose.runtime.livedata.observeAsState
+import com.galvezsh.quotes_provider.ui.theme.MVVM_1Theme
+import com.galvezsh.quotes_provider.viewModel.QuoteViewModel
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.style.TextAlign
-import com.galvezsh.mvvm_1.ui.theme.Purple80
+import com.galvezsh.quotes_provider.ui.theme.Purple80
+import androidx.lifecycle.viewmodel.compose.viewModel
 
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         setContent {
             MVVM_1Theme {
-                Graphics( AdviceViewModel() )
+                val quoteViewModel: QuoteViewModel = viewModel()
+                Graphics( quoteViewModel )
             }
         }
     }
 }
 
 @Composable
-fun Graphics(adviceViewModel: AdviceViewModel) {
-
-    val state by adviceViewModel.adviceModel.observeAsState()
+fun Graphics(quoteViewModel: QuoteViewModel) {
+    val quoteModel by quoteViewModel.quoteModel.collectAsState()
 
     Box( modifier = Modifier
         .fillMaxSize()
         .background(color = Purple80)
         .padding(16.dp)) {
 
-        IconButton( onClick = { adviceViewModel.randomAdvice() }, modifier = Modifier
+        IconButton( onClick = { quoteViewModel.randomAdvice() }, modifier = Modifier
             .align(Alignment.BottomEnd)
             .padding(end = 8.dp)
             .padding(bottom = 12.dp)
@@ -67,32 +66,23 @@ fun Graphics(adviceViewModel: AdviceViewModel) {
             )
         }
 
-        state?.let { adviceModel ->
+        Text(
+            text = quoteModel.quote,
+            fontSize = 32.sp,
+            lineHeight = 32.sp,
+            fontStyle = FontStyle.Italic,
+            textAlign = TextAlign.Center,
+            modifier = Modifier.align(Alignment.Center)
+        )
 
-            Text(
-                text = adviceModel.advice,
-                fontSize = 32.sp,
-                lineHeight = 32.sp,
-                fontStyle = FontStyle.Italic,
-                textAlign = TextAlign.Center,
-                modifier = Modifier.align(Alignment.Center)
-            )
-
-            Text(
-                text = adviceModel.author,
-                fontSize = 18.sp,
-                fontStyle = FontStyle.Italic,
-                textAlign = TextAlign.Center,
-                modifier = Modifier
-                    .align(Alignment.BottomCenter)
-                    .padding(bottom = 24.dp)
-            )
-        }
+        Text(
+            text = quoteModel.author,
+            fontSize = 18.sp,
+            fontStyle = FontStyle.Italic,
+            textAlign = TextAlign.Center,
+            modifier = Modifier
+                .align(Alignment.BottomCenter)
+                .padding(bottom = 24.dp)
+        )
     }
-}
-
-@Preview
-@Composable
-fun Preview() {
-    Graphics( AdviceViewModel() )
 }

@@ -5,7 +5,7 @@ plugins {
 }
 
 android {
-    namespace = "com.galvezsh.mvvm_1"
+    namespace = "com.galvezsh.quotes_provider"
     compileSdk = 35
 
     defaultConfig {
@@ -57,9 +57,9 @@ dependencies {
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
 
+    // ViewModel Lifecycle
+    implementation (libs.androidx.lifecycle.viewmodel.compose)
+
     // Extended icons for buttons
     implementation(libs.androidx.material.icons.extended)
-
-    // Runtime-livedata
-    implementation(libs.androidx.runtime.livedata)
 }

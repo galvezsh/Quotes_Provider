@@ -1,4 +1,4 @@
-package com.galvezsh.mvvm_1.ui.theme
+package com.galvezsh.quotes_provider.ui.theme
 
 import androidx.compose.material3.Typography
 import androidx.compose.ui.text.TextStyle
