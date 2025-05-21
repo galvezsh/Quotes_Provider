@@ -62,4 +62,8 @@ dependencies {
 
     // Extended icons for buttons
     implementation(libs.androidx.material.icons.extended)
+
+    // Retrofit and Json-converter
+    implementation (libs.retrofit)
+    implementation (libs.converter.gson)
 }

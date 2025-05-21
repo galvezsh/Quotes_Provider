@@ -2,6 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+<!--Permission for Retrofit-->
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -13,7 +16,7 @@
         android:theme="@style/Theme.quotes_provider"
         tools:targetApi="31">
         <activity
-            android:name="com.galvezsh.quotes_provider.view.MainActivity"
+            android:name="com.galvezsh.quotes_provider.ui.view.MainActivity"
             android:exported="true"
             android:theme="@style/Theme.quotes_provider">
             <intent-filter>
