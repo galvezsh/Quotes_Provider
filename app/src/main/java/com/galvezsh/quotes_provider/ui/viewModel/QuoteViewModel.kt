@@ -5,14 +5,18 @@ import androidx.lifecycle.viewModelScope
 import com.galvezsh.quotes_provider.data.model.QuoteModel
 import com.galvezsh.quotes_provider.domain.GetAllQuotesUseCase
 import com.galvezsh.quotes_provider.domain.GetRandomQuoteUseCase
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class QuoteViewModel: ViewModel() {
+@HiltViewModel
+class QuoteViewModel @Inject constructor(
+    private val getQuotesUseCase: GetAllQuotesUseCase,
+    private val getRandomQuoteUseCase: GetRandomQuoteUseCase
 
-    val getQuotesUseCase = GetAllQuotesUseCase()
-    val getRandomQuoteUseCase = GetRandomQuoteUseCase()
+) : ViewModel() {
 
     private val _quoteModel = MutableStateFlow( QuoteModel("", "") )
     val quoteModel: StateFlow<QuoteModel> = _quoteModel

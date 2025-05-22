@@ -2,6 +2,9 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
+
+    alias(libs.plugins.hilt)
+    kotlin("kapt")
 }
 
 android {
@@ -39,6 +42,16 @@ android {
     }
 }
 
+// This is necessary to resolve the app compilation error. KAPT is not 100% supported for
+// Kotlin 2.0.x, so the solutions are either to use Kotlin 1.9.x or to use Kotlin 2.0.x with this
+// extension.
+//
+// Google recommends replacing KAPT with KSP, but it is not yet finalized, so until it
+// is developed, this is the best solution.
+hilt {
+    enableAggregatingTask = false
+}
+
 dependencies {
 
     implementation(libs.androidx.core.ktx)
@@ -58,12 +71,16 @@ dependencies {
     debugImplementation(libs.androidx.ui.test.manifest)
 
     // ViewModel Lifecycle
-    implementation (libs.androidx.lifecycle.viewmodel.compose)
+    implementation(libs.androidx.lifecycle.viewmodel.compose)
 
     // Extended icons for buttons
     implementation(libs.androidx.material.icons.extended)
 
     // Retrofit and Json-converter
-    implementation (libs.retrofit)
-    implementation (libs.converter.gson)
+    implementation(libs.retrofit)
+    implementation(libs.converter.gson)
+
+    // Dagger hilt
+    implementation(libs.dagger.hilt)
+    kapt(libs.dagger.hilt.compiler)
 }
