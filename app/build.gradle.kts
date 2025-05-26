@@ -4,7 +4,7 @@ plugins {
     alias(libs.plugins.kotlin.compose)
 
     alias(libs.plugins.hilt)
-    kotlin("kapt")
+    alias(libs.plugins.ksp)
 }
 
 android {
@@ -12,7 +12,7 @@ android {
     compileSdk = 35
 
     defaultConfig {
-        applicationId = "com.galvezsh.mvvm_1"
+        applicationId = "com.galvezsh.quotes_provider"
         minSdk = 21
         targetSdk = 35
         versionCode = 1
@@ -40,16 +40,6 @@ android {
     buildFeatures {
         compose = true
     }
-}
-
-// This is necessary to resolve the app compilation error. KAPT is not 100% supported for
-// Kotlin 2.0.x, so the solutions are either to use Kotlin 1.9.x or to use Kotlin 2.0.x with this
-// extension.
-//
-// Google recommends replacing KAPT with KSP, but it is not yet finalized, so until it
-// is developed, this is the best solution.
-hilt {
-    enableAggregatingTask = false
 }
 
 dependencies {
@@ -82,5 +72,10 @@ dependencies {
 
     // Dagger hilt
     implementation(libs.dagger.hilt)
-    kapt(libs.dagger.hilt.compiler)
+    ksp(libs.dagger.hilt.compiler)
+
+    // Room
+    implementation(libs.room.runtime)
+    implementation(libs.room.ktx)
+    ksp(libs.room.compiler)
 }
